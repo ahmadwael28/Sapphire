@@ -1,0 +1,9 @@
+{
+    "title": "Create new account",
+    "username": "Username",
+    "email": "E-mail",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "createAccount": "Create account",
+    "backToLogin": "Back to login page"
+}

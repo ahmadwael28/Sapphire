@@ -1,8 +1,10 @@
+@import 'variables.scss';
+
 .authentication {
     &__page-container {
         width: 100% !important;
         height: 100% !important;
-        background-image: url("../../assets/cloud.png");
+        background-image: url("../../assets/images/cloud.png");
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -13,7 +15,7 @@
         left:0;
         right:0;
         bottom:0;
-        background-color:rgba(0, 0, 0, 0.50);
+        background-color:rgba(0, 0, 0, 0.60);
     }
 
     &__content {
@@ -22,6 +24,30 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+    }
+
+    &__auth-window {
+        width: 500px;
+        border-radius: 5%;
+        background-color: $primary-light;
+
+        &__login-page-size {
+            height: 500px;
+        }
+
+        &__signup-page-size {
+            height: 600px;
+        }
+    }
+
+    
+
+    &__multi-window {
+        height: 100%;
+    }
+
+    &__view {
+        height: 100%;
+        padding: 0;
     }
 }

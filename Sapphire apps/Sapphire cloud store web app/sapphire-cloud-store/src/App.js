@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 //pages
 import { Authentication } from "./pages/authentication/Authentication";
 
-import "./App.css";
+import "./App.scss";
 
 function App() {
   return (
