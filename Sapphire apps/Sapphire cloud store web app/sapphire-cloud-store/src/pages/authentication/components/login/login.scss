@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 .login {
     display: flex;
     align-items: center;
@@ -77,5 +79,9 @@
         &__btn {
             font-size: 14px;
         }
+    }
+
+    &__login-error-continer {
+        color: $danger;
     }
 }

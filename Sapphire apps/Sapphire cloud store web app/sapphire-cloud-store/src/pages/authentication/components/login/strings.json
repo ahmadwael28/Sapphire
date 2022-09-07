@@ -1,8 +1,10 @@
 {
     "appName": "Sapphire cloud store",
     "welcomeMsg": "Welcome to your personal cloud storage",
-    "username": "Username",
+    "username": "Username / E-mail",
     "password": "Password",
     "login": "Login",
-    "createAccount": "Create account"
+    "createAccount": "Create account",
+    "usernameReq":"Username or E-mail is required",
+    "passwordReq":"Password is required"
 }

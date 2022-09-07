@@ -30,13 +30,14 @@
         width: 500px;
         border-radius: 5%;
         background-color: $primary-light;
+        height: fit-content;
 
         &__login-page-size {
             height: 500px;
         }
 
-        &__signup-page-size {
-            height: 600px;
+        &__carousel {
+            height: 100%;
         }
     }
 

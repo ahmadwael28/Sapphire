@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 .signup {
     display: flex;
     align-items: center;
@@ -77,5 +79,19 @@
         &__btn {
             font-size: 14px;
         }
+    }
+
+    &__signup-error-continer {
+        color: $danger;
+    }
+
+    &__success-icon {
+        color: $success;
+        cursor: default;
+    }
+
+    &__warning-icon {
+        color: $warning;
+        cursor: default;
     }
 }

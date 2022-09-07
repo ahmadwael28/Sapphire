@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MultipleViews } from "@common-controls/multipleView/MultipleView";
+import { CarouselView } from "@common-controls/carouselView/CarouselView";
 import { Login } from "./components/login/login";
 import { SignUp } from "./components/signUp/SignUp";
 import "./Authentication.scss";
@@ -18,19 +18,24 @@ export const Authentication = () => {
       <div className="authentication__page-overlay">
         <div className="authentication__content">
           <div
-            className={`authentication__auth-window authentication__auth-window__${
-              currentView ? "signup-page-size" : "login-page-size"
-            }`}
+            className={`authentication__auth-window authentication__auth-window__${"signup-page-size"}`}
           >
-            <MultipleViews
-              containerClassName="authentication__multi-window"
-              viewClassName="authentication__view"
+            <CarouselView
+              autoPlay={false}
+              indicators={false}
+              swipe={false}
+              cycleNavigation={false}
+              changeOnFirstRender={false}
+              navButtonsAlwaysInvisible={true}
+              animation="fade"
+              animationDuration={400}
               currentViewIndex={currentView}
-              views={[
-                <Login onCreateAccountClick={onCreateAccountClick} />,
-                <SignUp onBackToLoginClick={onBackToLoginClick} />,
-              ]}
-            />
+              className={"authentication__auth-window__carousel"}
+              height={currentView ? 700 : 500}
+            >
+              <Login onCreateAccountClick={onCreateAccountClick} />
+              <SignUp onBackToLoginClick={onBackToLoginClick} />
+            </CarouselView>
           </div>
         </div>
       </div>

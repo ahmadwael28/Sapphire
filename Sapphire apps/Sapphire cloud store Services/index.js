@@ -11,7 +11,7 @@ var cors = require("cors");
 
 const app = express();
 const mongoURL = "mongodb://localhost:27017/cloud-store";
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4949;
 
 app.use(cors());
 app.use("/static", express.static("./uploads/profilePics"));

@@ -1,24 +1,64 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { TextBox } from "@common-controls/textbox/TextBox";
 import { IconLabelButton } from "@common-controls/button/Button";
 import { inputTypes, buttonVariants } from "@enums";
-import strings from "./strings.json";
+import {
+  clearLoginError,
+  login,
+} from "../../../../store/actions/AuthenticationActions";
+import { authErrorSelector } from "../../../../store/selectors/AuthenticationSelector";
 
+import strings from "./strings.json";
 import logo from "@images/logo.png";
 import LoginIcon from "@mui/icons-material/Login";
 import CreateIcon from "@mui/icons-material/Create";
 import "./login.scss";
 
 export const Login = ({ onCreateAccountClick }) => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState({ value: "", error: "" });
+  const [password, setPassword] = useState({ value: "", error: "" });
+
+  const dispatch = useDispatch();
+  const error = useSelector(authErrorSelector);
+
+  const validateInputs = () => {
+    let isValid = true;
+    if (!username.value) {
+      setUsername({ ...username, error: strings.usernameReq });
+      isValid = false;
+    } else setUsername({ ...username, error: "" });
+
+    if (!password.value) {
+      setPassword({ ...password, error: strings.passwordReq });
+      isValid = false;
+    } else setPassword({ ...password, error: "" });
+
+    return isValid;
+  };
 
   const handleLoginClick = () => {
-    console.log("login");
+    dispatch(clearLoginError());
+    if (validateInputs()) {
+      dispatch(
+        login({
+          username: username.value,
+          password: password.value,
+        })
+      );
+    }
   };
 
   const handleCreateAccountClick = () => {
     onCreateAccountClick && onCreateAccountClick();
+  };
+
+  const handleUsernameChange = (value) => {
+    setUsername({ ...username, value });
+  };
+
+  const handlePasswordChange = (value) => {
+    setPassword({ ...password, value });
   };
 
   return (
@@ -40,16 +80,20 @@ export const Login = ({ onCreateAccountClick }) => {
             <TextBox
               id="login-username"
               label={strings.username}
-              onChange={setUsername}
-              value={username}
+              onChange={handleUsernameChange}
+              value={username.value}
               inputType={inputTypes.TEXT}
+              error={!!username.error}
+              helperText={username.error ? username.error : ""}
             />
             <TextBox
               id="login-password"
               label={strings.password}
-              onChange={setPassword}
-              value={password}
+              onChange={handlePasswordChange}
+              value={password.value}
               inputType={inputTypes.PASSWORD}
+              error={!!password.error}
+              helperText={password.error ? password.error : ""}
             />
           </div>
           <div className="login__login-btn-container">
@@ -62,6 +106,11 @@ export const Login = ({ onCreateAccountClick }) => {
               iconClassName="login__login-btn__icon"
             />
           </div>
+          {error && error.msg && (
+            <div className="login__login-error-continer">
+              <p>{`${error.code}: ${error.msg}`}</p>
+            </div>
+          )}
         </div>
 
         <div className="login__create-account">

@@ -1,0 +1,17 @@
+{
+    "host": {
+        "protocol": "http",
+        "host":"localhost",
+        "port": "4949"
+    },
+
+    "services": {
+        "auth": {
+            "login": "users/login",
+            "logout":"",
+            "signup": "users/create-user",
+            "isUsernameExists": "users/username-inuse",
+            "isEmailExists": "users/email-exists"
+        }
+    }
+}

@@ -6,6 +6,7 @@ import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import FormHelperText from "@mui/material/FormHelperText";
 import { inputTypes } from "@enums";
 
 export const TextBox = ({
@@ -14,6 +15,8 @@ export const TextBox = ({
   value,
   inputType,
   onChange,
+  helperText,
+  indicator,
   ...restProps
 }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -62,11 +65,21 @@ export const TextBox = ({
                 {showPassword ? <VisibilityOff /> : <Visibility />}
               </IconButton>
             </InputAdornment>
+          ) : inputType === inputTypes.TEXT_WITH_INDICATOR && indicator ? (
+            <InputAdornment position="end">{indicator}</InputAdornment>
           ) : null
         }
         label={label}
         {...restProps}
       />
+      {helperText ? (
+        <FormHelperText
+          id={`${id}-outlined-input-helper-text`}
+          style={{ color: "red" }}
+        >
+          {helperText}
+        </FormHelperText>
+      ) : null}
     </FormControl>
   );
 };

@@ -39,7 +39,21 @@ router.get("/", async (req, res) => {
 router.post("/create-user", async (req, res) => {
   const { error } = validateUsers(req.body);
   if (error)
-    return res.status(500).json({ msg: error.details, code: "USER-001" });
+    return res
+      .status(500)
+      .json({ msg: "User data is not valid.", code: "USER-001" });
+
+  //check if username is already in use
+  if (await UserRepo.isUsernameInUse(req.body.username))
+    return res
+      .status(400)
+      .json({ msg: "Username is already in use.", code: "USER-008" });
+
+  //check if email exists
+  if (await UserRepo.isExistingEmail(req.body.email))
+    return res
+      .status(400)
+      .json({ msg: "E-mail is already in use.", code: "USER-008" });
 
   user = await UserRepo.saveUser(req.body);
   return res.status(200).send(filterUserDTO(user));

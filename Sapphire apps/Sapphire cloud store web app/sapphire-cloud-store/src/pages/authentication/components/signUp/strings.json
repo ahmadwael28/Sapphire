@@ -1,9 +1,22 @@
 {
     "title": "Create new account",
+    "firstname": "First name",
+    "lastname": "Last name",
     "username": "Username",
     "email": "E-mail",
     "password": "Password",
     "confirmPassword": "Confirm password",
     "createAccount": "Create account",
-    "backToLogin": "Back to login page"
+    "backToLogin": "Back to login page",
+    "firstnameReq": "Firstname is required",
+    "lastnameReq": "Lastname is required",
+    "usernameReq":"Username is required",
+    "emailReq":"E-mail is required",
+    "passwordReq":"Password is required",
+    "passwordVerReq":"Password verification is required",
+    "unmatchingPasswords":"Passwords must be matching",
+
+    "usernameExists":"This Username is already in use",
+    "usernameAvailable": "Username is available",
+    "emailExists": "This E-mail has been registered before"
 }
