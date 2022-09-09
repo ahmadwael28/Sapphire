@@ -8,8 +8,8 @@
     "confirmPassword": "Confirm password",
     "createAccount": "Create account",
     "backToLogin": "Back to login page",
-    "firstnameReq": "Firstname is required",
-    "lastnameReq": "Lastname is required",
+    "firstnameReq": "First name is required",
+    "lastnameReq": "Last name is required",
     "usernameReq":"Username is required",
     "emailReq":"E-mail is required",
     "passwordReq":"Password is required",
@@ -18,5 +18,6 @@
 
     "usernameExists":"This Username is already in use",
     "usernameAvailable": "Username is available",
-    "emailExists": "This E-mail has been registered before"
+    "emailExists": "This E-mail has been registered before",
+    "signupSuccess": "User added successfully, please login to the system."
 }

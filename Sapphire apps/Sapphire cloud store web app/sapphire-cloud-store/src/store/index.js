@@ -7,12 +7,14 @@ import appConfig from "../appConfig";
 
 //reducers
 import AuthenticationReducer from "./reducers/AuthenticationReducer";
+import SnackbarReducer from "./reducers/SnackbarReducer";
 
 //epics
 import { authenticationEpic } from "./epics/AuthenticationEpic";
 
 const reducers = {
   auth: AuthenticationReducer,
+  snackBar: SnackbarReducer,
 };
 
 const appReducers = combineReducers(reducers);

@@ -10,3 +10,10 @@ export const buttonVariants = {
   TEXT: "text",
   STRING: "string",
 };
+
+export const snackbarMsgType = {
+  ERROR: "error",
+  WARNING: "warning",
+  INFO: "info",
+  SUCCESS: "success",
+};

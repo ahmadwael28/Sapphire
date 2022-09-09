@@ -20,7 +20,6 @@ export const TextBox = ({
   ...restProps
 }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [inputValue, setInputValue] = useState(value);
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -31,7 +30,7 @@ export const TextBox = ({
   };
 
   const onInputValueChange = (e) => {
-    setInputValue(e.target.value);
+    //setInputValue(e.target.value);
     onChange && onChange(e.target.value);
   };
 
@@ -51,7 +50,7 @@ export const TextBox = ({
               : inputTypes.PASSWORD
             : inputType
         }
-        value={inputValue}
+        value={value}
         onChange={onInputValueChange}
         endAdornment={
           inputType === inputTypes.PASSWORD ? (

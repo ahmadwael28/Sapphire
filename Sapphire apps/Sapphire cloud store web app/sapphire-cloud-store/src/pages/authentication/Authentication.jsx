@@ -31,7 +31,7 @@ export const Authentication = () => {
               animationDuration={400}
               currentViewIndex={currentView}
               className={"authentication__auth-window__carousel"}
-              height={currentView ? 700 : 500}
+              height={currentView ? 800 : 500}
             >
               <Login onCreateAccountClick={onCreateAccountClick} />
               <SignUp onBackToLoginClick={onBackToLoginClick} />

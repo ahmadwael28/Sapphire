@@ -1,4 +1,5 @@
 import React from "react";
+import { SnackBar } from "./controls/snackBar/SnackBar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store/index";
@@ -11,6 +12,7 @@ function App() {
   return (
     <div className="app-container">
       <Provider store={store}>
+        <SnackBar />
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Authentication />} />

@@ -24,12 +24,13 @@ import {
   signupSuccessSelector,
 } from "../../../../store/selectors/AuthenticationSelector";
 
-import { inputTypes, buttonVariants } from "@enums";
+import { inputTypes, buttonVariants, snackbarMsgType } from "@enums";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
 import "./SignUp.scss";
 
 import strings from "./strings.json";
+import { showMessage } from "../../../../store/actions/SnackBarActions";
 
 export const SignUp = ({ onBackToLoginClick }) => {
   const [firstname, setFirstname] = useState({ value: "", error: "" });
@@ -80,13 +81,15 @@ export const SignUp = ({ onBackToLoginClick }) => {
       isValid = false;
     } else setConfirmPassword({ ...confirmPassword, error: "" });
 
-    if (password.value !== confirmPassword.value) {
-      setConfirmPassword({
-        ...confirmPassword,
-        error: strings.unmatchingPasswords,
-      });
-      isValid = false;
-    } else setConfirmPassword({ ...confirmPassword, error: "" });
+    if (password.value && confirmPassword.value) {
+      if (password.value !== confirmPassword.value) {
+        setConfirmPassword({
+          ...confirmPassword,
+          error: strings.unmatchingPasswords,
+        });
+        isValid = false;
+      } else setConfirmPassword({ ...confirmPassword, error: "" });
+    }
 
     return isValid;
   };
@@ -158,9 +161,9 @@ export const SignUp = ({ onBackToLoginClick }) => {
   };
 
   const clearSignupForm = () => {
-    setFirstname({ ...firstname, error: "", value: "" });
-    setLastname({ ...lastname, error: "", value: "" });
-    setUsername({ ...username, error: "", value: "" });
+    setFirstname({ error: "", value: "" });
+    setLastname({ error: "", value: "" });
+    setUsername({ error: "", value: "" });
     setEmail({ ...email, error: "", value: "" });
     setPassword({ ...password, error: "", value: "" });
     setConfirmPassword({ ...confirmPassword, error: "", value: "" });
@@ -171,8 +174,11 @@ export const SignUp = ({ onBackToLoginClick }) => {
   useEffect(() => {
     if (isSignupSuccess) {
       // clear signup form
-      clearSignupForm(); // TODO: check reset issue in ui
+      clearSignupForm();
       // show success notification
+      dispatch(
+        showMessage(strings.signupSuccess, 6000, snackbarMsgType.SUCCESS)
+      );
       // navigate to login
       handleBackToLoginClick();
       // clear isSignupSuccess
