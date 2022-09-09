@@ -49,6 +49,14 @@ export const SignUp = ({ onBackToLoginClick }) => {
   const isEmailExists = useSelector(isEmailExistsSelector);
   const isSignupSuccess = useSelector(signupSuccessSelector);
 
+  const validateEmail = (email) => {
+    return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email);
+  };
+
+  const validateUsername = (username) => {
+    return /^[A-Za-z][A-Za-z0-9_]{7,29}$/g.test(username);
+  };
+
   const validateInputs = () => {
     let isValid = true;
     if (!firstname.value) {
@@ -64,10 +72,16 @@ export const SignUp = ({ onBackToLoginClick }) => {
     if (!username.value) {
       setUsername({ ...username, error: strings.usernameReq });
       isValid = false;
+    } else if (!validateUsername(username.value)) {
+      setUsername({ ...username, error: strings.invalidUsernameFormat });
+      isValid = false;
     } else setUsername({ ...username, error: "" });
 
     if (!email.value) {
       setEmail({ ...email, error: strings.emailReq });
+      isValid = false;
+    } else if (!validateEmail(email.value)) {
+      setEmail({ ...email, error: strings.invalidEmailFormat });
       isValid = false;
     } else setEmail({ ...email, error: "" });
 
@@ -114,21 +128,21 @@ export const SignUp = ({ onBackToLoginClick }) => {
   };
 
   const handleFirstnameChange = (value) => {
-    setFirstname({ ...firstname, value });
+    setFirstname({ ...firstname, value, error: "" });
   };
 
   const handleLastnameChange = (value) => {
-    setLastname({ ...lastname, value });
+    setLastname({ ...lastname, value, error: "" });
   };
 
   const handleUsernameChange = (value) => {
-    setUsername({ ...username, value });
+    setUsername({ ...username, value, error: "" });
     dispatch(clearIsUsernameExists());
   };
 
   const handleUsernameBlur = (e) => {
     const value = e.target.value;
-    if (value)
+    if (value && validateUsername(value))
       dispatch(
         checkIsUsernameExists({
           username: value,
@@ -137,26 +151,27 @@ export const SignUp = ({ onBackToLoginClick }) => {
   };
 
   const handleEmailChange = (value) => {
-    setEmail({ ...email, value });
+    setEmail({ ...email, value, error: "" });
     dispatch(clearIsEmailExists());
   };
 
   const handleEmailBlur = (e) => {
     const value = e.target.value;
-    if (value) console.log(value);
-    dispatch(
-      checkIsEmailExists({
-        email: value,
-      })
-    );
+    if (value && validateEmail(value)) {
+      dispatch(
+        checkIsEmailExists({
+          email: value,
+        })
+      );
+    }
   };
 
   const handlePasswordChange = (value) => {
-    setPassword({ ...password, value });
+    setPassword({ ...password, value, error: "" });
   };
 
   const handleConfirmPasswordChange = (value) => {
-    setConfirmPassword({ ...confirmPassword, value });
+    setConfirmPassword({ ...confirmPassword, value, error: "" });
   };
 
   const clearSignupForm = () => {
@@ -176,7 +191,7 @@ export const SignUp = ({ onBackToLoginClick }) => {
       clearSignupForm();
       // show success notification
       dispatch(
-        showMessage(strings.signupSuccess, 6000, snackbarMsgType.SUCCESS)
+        showMessage(strings.signupSuccess, 5000, snackbarMsgType.SUCCESS)
       );
       // navigate to login
       handleBackToLoginClick();

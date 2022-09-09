@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { TextBox } from "@common-controls/textbox/TextBox";
 import { IconLabelButton } from "@common-controls/button/Button";
 import { inputTypes, buttonVariants } from "@enums";
@@ -7,7 +9,10 @@ import {
   clearLoginError,
   login,
 } from "../../../../store/actions/AuthenticationActions";
-import { authErrorSelector } from "../../../../store/selectors/AuthenticationSelector";
+import {
+  authErrorSelector,
+  isAuthenticated,
+} from "../../../../store/selectors/AuthenticationSelector";
 
 import strings from "./strings.json";
 import logo from "@images/logo.png";
@@ -21,6 +26,12 @@ export const Login = ({ onCreateAccountClick }) => {
 
   const dispatch = useDispatch();
   const error = useSelector(authErrorSelector);
+  const isAuth = useSelector(isAuthenticated);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuth) navigate("/home");
+  }, [isAuth]);
 
   const validateInputs = () => {
     let isValid = true;
@@ -61,6 +72,12 @@ export const Login = ({ onCreateAccountClick }) => {
     setPassword({ ...password, value });
   };
 
+  const handlePasswordKeyPress = (e) => {
+    if (e.keyCode == 13) {
+      handleLoginClick();
+    }
+  };
+
   return (
     <div className="login">
       <div className="login__container">
@@ -94,6 +111,7 @@ export const Login = ({ onCreateAccountClick }) => {
               inputType={inputTypes.PASSWORD}
               error={!!password.error}
               helperText={password.error ? password.error : ""}
+              onKeyDown={handlePasswordKeyPress}
             />
           </div>
           <div className="login__login-btn-container">

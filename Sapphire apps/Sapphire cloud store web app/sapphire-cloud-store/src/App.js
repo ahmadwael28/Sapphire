@@ -6,6 +6,7 @@ import store from "./store/index";
 
 //pages
 import { Authentication } from "./pages/authentication/Authentication";
+import { Home } from "./pages/home/Home";
 import "./App.scss";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Authentication />} />
+            <Route path="/home" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </Provider>
