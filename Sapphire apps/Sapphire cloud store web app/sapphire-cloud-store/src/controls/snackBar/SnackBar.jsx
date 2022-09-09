@@ -13,7 +13,6 @@ export const SnackBar = ({ vertical, horizontal, ...restProps }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(messageObj);
     if (messageObj?.message) setOpen(true);
     else setOpen(false);
   }, [messageObj]);

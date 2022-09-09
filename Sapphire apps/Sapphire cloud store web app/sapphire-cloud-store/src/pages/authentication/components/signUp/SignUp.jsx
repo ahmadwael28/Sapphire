@@ -97,7 +97,6 @@ export const SignUp = ({ onBackToLoginClick }) => {
   const handleSignUpClick = () => {
     dispatch(clearSignupError());
     if (validateInputs()) {
-      console.log("valid");
       dispatch(
         signup({
           firstName: firstname.value,
