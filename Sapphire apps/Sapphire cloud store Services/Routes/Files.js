@@ -85,15 +85,15 @@ router.get(
     if (error)
       return res.status(500).json({ msg: error.details, code: "FILE-001" });
 
-    let user = await FileRepo.getUserFiles(userId);
+    let userFiles = await FileRepo.getUserFiles(userId);
 
-    if (user == null)
+    if (userFiles == null)
       return res.status(400).json({
         msg: "User not found.",
         code: "FILE-004",
       });
 
-    return res.status(200).send(filterUserDTO(user));
+    return res.status(200).send(filterUserDTO(userFiles));
   }
 );
 

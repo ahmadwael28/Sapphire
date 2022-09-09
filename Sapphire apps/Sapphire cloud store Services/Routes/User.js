@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const fs = require("fs-extra");
 const multer = require("multer");
+var path = require("path");
 
 const SECRET_KEY = require("../config");
 const AuthorizationMiddleware = require("../middlewares/authorization");
@@ -184,6 +185,39 @@ router.delete(
     user = await UserRepo.updateUser(user._id, user);
 
     return res.status(200).send("User deleted successfully.");
+  }
+);
+
+// gets file content by file id
+router.get(
+  "/profile-pic",
+  AuthorizationMiddleware.verifyToken,
+  async (req, res, next) => {
+    const userId = req.user.id;
+    const { error } = validateObjectId(userId);
+    if (error)
+      return res.status(500).json({ msg: error.details, code: "FILE-001" });
+
+    let user = await UserRepo.getUserById(userId);
+    const options = {
+      root: path.dirname(path.join(__dirname)),
+    };
+    const filePath = path.join("uploads/profilePics", user.image);
+
+    if (await fs.existsSync(filePath)) {
+      return res.sendFile(filePath, options, function (err) {
+        if (err) {
+          next(err);
+        } else {
+          console.log("Sent:", filePath);
+        }
+      });
+    } else {
+      return res.status(404).json({
+        msg: "File may be deleted.",
+        code: "FILE-003",
+      });
+    }
   }
 );
 

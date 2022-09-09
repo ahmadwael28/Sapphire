@@ -1,0 +1,20 @@
+.navigation-bar {
+    &__title-container {
+        width: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        height: 70px;
+    }
+
+    &__app-img {
+        height: 475%;
+        transform: rotatez(40deg);
+    }
+
+    &__app-name {
+        padding-left: 0.5em;
+        font-size: 32px;
+        font-weight: bold;
+    }
+}

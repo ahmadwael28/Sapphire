@@ -1,0 +1,25 @@
+.app-drawer {
+    &__card-header {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        width: 100%;
+        padding: 1em;
+
+        &__avatar-container{
+            margin-bottom: 1em;
+        }
+        &__avatar {
+            padding: 0.5em;
+        }
+
+        &__title {
+            font-size: x-large;
+            font-weight: bold;
+        }
+
+        &__sub-title {
+            font-size: small;
+        }
+    }
+}

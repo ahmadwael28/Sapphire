@@ -11,6 +11,7 @@ import {
   CLEAR_SIGNUP_ERROR,
   SIGNUP_SUCCESS,
   CLEAR_SIGNUP_SUCCESS,
+  FILL_USER_DETAILS,
 } from "../actionTypes";
 
 const initialState = {
@@ -22,6 +23,8 @@ const initialState = {
   isEmailExists: null,
   loginError: {},
   signupError: {},
+
+  userDetails: {},
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -105,6 +108,12 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         signupError: {},
+      };
+
+    case FILL_USER_DETAILS:
+      return {
+        ...state,
+        userDetails: { ...action.userDetials },
       };
 
     default:

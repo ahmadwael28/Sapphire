@@ -11,7 +11,12 @@
             "logout":"",
             "signup": "users/create-user",
             "isUsernameExists": "users/username-inuse",
-            "isEmailExists": "users/email-exists"
+            "isEmailExists": "users/email-exists",
+            "getUserDetails": "users/token-details"
+        },
+
+        "data": {
+            "profilePic": "users/profile-pic"
         }
     }
 }
