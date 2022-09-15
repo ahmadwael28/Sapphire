@@ -1,7 +1,6 @@
 import React from "react";
 import { styled } from "@mui/material/styles";
 import {
-  Avatar,
   Divider,
   Drawer,
   List,
@@ -31,6 +30,11 @@ export const AppDrawer = ({ open, onDrawerClose, buttons, userDetails }) => {
 
   const drawerWidth = 240;
 
+  const toBase64 = (arr) => {
+    return btoa(
+      arr.reduce((data, byte) => data + String.fromCharCode(byte), "")
+    );
+  };
   return (
     <Drawer
       sx={{
@@ -50,9 +54,10 @@ export const AppDrawer = ({ open, onDrawerClose, buttons, userDetails }) => {
           {userDetails ? (
             <>
               <div className="app-drawer__card-header__avatar-container">
-                <Avatar
-                  aria-label="recipe"
+                <img
                   className="app-drawer__card-header__avatar"
+                  src={`data:image/png;base64,${userDetails.image}`}
+                  alt="PP"
                 />
               </div>
 

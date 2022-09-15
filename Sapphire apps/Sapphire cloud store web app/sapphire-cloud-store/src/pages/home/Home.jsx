@@ -7,13 +7,18 @@ import { getUserDetails } from "../../store/actions/DataActions";
 import { isAuthenticated } from "../../store/selectors/AuthenticationSelector";
 import { userDetailsSelector } from "../../store/selectors/DataSelector";
 import { NavigationBar } from "./components/navigationBar/NavigationBar";
+import { IconLabelButton } from "@common-controls/button/Button";
+import { DialogWindow } from "@common-controls/dialog/DialogWindow";
+import { UploadFile } from "./components/uploadFile/UploadFile";
 
 import strings from "./strings.json";
 import LogoutIcon from "@mui/icons-material/Logout";
+import AddIcon from "@mui/icons-material/Add";
 import "./Home.scss";
 
 export const Home = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [uploadDialogOpen, setUploadDialogOpen] = useState(false);
   const isAuth = useSelector(isAuthenticated);
   const userData = useSelector(userDetailsSelector);
   const navigate = useNavigate();
@@ -39,6 +44,14 @@ export const Home = () => {
     setDrawerOpen(false);
   };
 
+  const handleUploadFile = () => {
+    setUploadDialogOpen(true);
+  };
+
+  const handleUploadDialogClose = () => {
+    setUploadDialogOpen(false);
+  };
+
   const handleSignOut = () => {
     console.log("Logout");
   };
@@ -59,6 +72,21 @@ export const Home = () => {
         onDrawerClose={handleDrawerClose}
         buttons={drawerBtns}
         userDetails={userData}
+      />
+
+      <DialogWindow
+        open={uploadDialogOpen}
+        onClose={handleUploadDialogClose}
+        title={strings.uploadFile}
+        closeBtnText={strings.close}
+        fullWidth
+      >
+        <UploadFile />
+      </DialogWindow>
+      <IconLabelButton
+        onClick={handleUploadFile}
+        btnClassName={"home__upload-btn"}
+        label={<AddIcon />}
       />
     </div>
   );

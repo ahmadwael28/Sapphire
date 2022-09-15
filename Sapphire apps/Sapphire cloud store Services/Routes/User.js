@@ -138,7 +138,17 @@ router.get(
       return res.status(400).json({ msg: error.details, code: "user-001" });
     else {
       let user = await UserRepo.getUserById(userId);
-      return res.status(200).send(filterUserDTO(user));
+
+      if (user.image) {
+        fs.readFile(
+          `uploads/profilePics/${user.image}`,
+          "base64",
+          function (err, data) {
+            user.image = data;
+            return res.status(200).send(filterUserDTO(user));
+          }
+        );
+      } else return res.status(200).send(filterUserDTO(user));
     }
   }
 );

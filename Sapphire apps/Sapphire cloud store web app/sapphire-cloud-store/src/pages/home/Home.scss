@@ -1,6 +1,23 @@
+@import 'variables.scss';
+
 .home {
     &__page-container {
         width: 100% !important;
         height: 100% !important;
+    }
+
+    &__upload-btn {
+        &:hover {
+            color: $primary;
+        }
+
+        background-color: $primary;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        color: $primary-text-light;
+        position: absolute;
+        bottom: 5%;
+        right: 3%;
     }
 }

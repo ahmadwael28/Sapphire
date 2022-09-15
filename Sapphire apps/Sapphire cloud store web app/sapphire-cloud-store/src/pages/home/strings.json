@@ -1,3 +1,5 @@
 {
-    "logout": "Logout"
+    "logout": "Logout",
+    "uploadFile": "Upload New File",
+    "close": "Close"
 }

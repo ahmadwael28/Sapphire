@@ -1,0 +1,62 @@
+@import 'variables.scss';
+
+.upload-file {
+    width: 100%;
+    &__upload-btn {
+        &:hover {
+            background-color: $primary-hover;
+        }
+        width: 100px;
+        height: 100px;
+        cursor: pointer;
+        background-color: $primary;
+        color: $primary-text-light;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        font-weight: bold;
+        transition: background 0.5s;
+    }
+
+    &__upload-input {
+        display: none;
+    }
+
+    &__upload-drag-area {
+        // padding: 8px;
+        // border: 2px dashed $border-grey;
+        // border-radius: 10px;
+        // width: 70%;
+        // height: 100px;
+        // display: flex;
+        // align-items: center;
+        // justify-content: center;
+        &:hover {
+            background-color: $light-grey;
+        }
+
+        border: 2px dashed $border-grey !important;
+        border-radius: 10px !important;
+        width: 100% !important;
+        height: 100px !important;
+        max-width: unset !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &__drag-message {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+
+    &__upload-methods-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
