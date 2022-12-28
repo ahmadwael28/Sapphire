@@ -1,0 +1,17 @@
+.files-list {
+    height: -webkit-fill-available;
+
+    &__list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0;
+    }
+
+    &__list-item {
+        width: 200px;
+        height: 200px;
+        padding: 0;
+        margin: 20px;
+    }
+}

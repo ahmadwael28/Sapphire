@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDrawer } from "../../controls/drawer/AppDrawer";
-import { getUserDetails } from "../../store/actions/DataActions";
+import { getUserDetails, getUserFiles } from "../../store/actions/DataActions";
 
 import { isAuthenticated } from "../../store/selectors/AuthenticationSelector";
 import { userDetailsSelector } from "../../store/selectors/DataSelector";
 import { NavigationBar } from "./components/navigationBar/NavigationBar";
+import { FilesList } from "./components/filesList/FilesList";
 import { IconLabelButton } from "@common-controls/button/Button";
 import { DialogWindow } from "@common-controls/dialog/DialogWindow";
 import { UploadFile } from "./components/uploadFile/UploadFile";
@@ -26,6 +27,7 @@ export const Home = () => {
 
   useEffect(() => {
     if (!Object.keys(userData).length) dispatch(getUserDetails());
+    dispatch(getUserFiles());
   }, []);
 
   useEffect(() => {
@@ -67,6 +69,7 @@ export const Home = () => {
   return (
     <div className="home__page-container">
       <NavigationBar onDrawerBtnClick={handleDrawerBtnClick} />
+      <FilesList />
       <AppDrawer
         open={drawerOpen}
         onDrawerClose={handleDrawerClose}

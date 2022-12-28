@@ -1,15 +1,25 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { uploadFile } from "../../../../store/actions/DataActions";
+import { filesUploadingSelector } from "../../../../store/selectors/DataSelector";
+
 import { FilesUploadingList } from "../filesUploadingList/FilesUploadingList";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
-import "./UploadFile.scss";
 import { FileUploader } from "react-drag-drop-files";
 
+import "./UploadFile.scss";
+
 export const UploadFile = () => {
-  const [files, setFiles] = useState([]);
+  const dispatch = useDispatch();
+  const filesUploading = useSelector(filesUploadingSelector);
+  const [currentfile, setCurrentFile] = useState(null);
 
   const handleFileDrop = (file) => {
-    console.log(file);
-    setFiles([...files, file]);
+    //console.log(file);
+
+    if (file) dispatch(uploadFile("file", file));
+    console.log("file changed");
+    setCurrentFile(file);
   };
 
   return (
@@ -18,7 +28,8 @@ export const UploadFile = () => {
         <FileUploader
           multiple={false}
           handleChange={handleFileDrop}
-          onSelect={handleFileDrop}
+          //onSelect={handleFileSelect} TODO: fix selecting same file twice issue
+          fileOrFiles={currentfile}
           name="file"
           classes="upload-file__upload-drag-area"
         >
@@ -29,7 +40,7 @@ export const UploadFile = () => {
         </FileUploader>
       </div>
 
-      <FilesUploadingList files={files} />
+      <FilesUploadingList files={filesUploading} />
     </div>
   );
 };

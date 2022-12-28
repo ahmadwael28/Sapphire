@@ -39,6 +39,20 @@ class RestServices {
     return this.axiosInstance.post(url, data, header);
   }
 
+  uploadData(url, fileParamName, file, additionalDataName, additionalData) {
+    const formData = new FormData();
+    formData.append(fileParamName, file);
+    if (additionalDataName && additionalData) {
+      formData.append(
+        additionalDataName,
+        new Blob([JSON.stringify(additionalData)], {
+          type: "application/json",
+        })
+      );
+    }
+    return this.axiosInstance.post(url, formData);
+  }
+
   putRequest(url, data) {
     return this.axiosInstance.put(url, data);
   }

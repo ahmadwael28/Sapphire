@@ -19,8 +19,18 @@ export const CLEAR_LOGIN_ERROR = "CLEAR_LOGIN_ERROR";
 export const CLEAR_SIGNUP_SUCCESS = "CLEAR_SIGNUP_SUCCESS";
 export const GET_USER_DETAILS = "GET_USER_DETAILS";
 export const FILL_USER_DETAILS = "FILL_USER_DETAILS";
-export const GET_USER_FILES = "GET_USER_FILES";
 
 //snack bar
 export const SHOW_MESSAGE = "SHOW_MESSAGE";
 export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
+
+//file upload
+export const ADD_FILE_UPLOADING = "ADD_FILE_UPLOADING";
+export const REMOVE_FILE_UPLOADING = "REMOVE_FILE_UPLOADING";
+export const UPLOAD_NEW_FILE = "UPLOAD_NEW_FILE";
+export const PRE_UPLOAD_NEW_FILE = "PRE_UPLOAD_NEW_FILE";
+export const GET_USER_FILES = "GET_USER_FILES";
+export const FILL_USER_FILES = "FILL_USER_FILES";
+
+//file download
+export const DOWNLOAD_FILES = "DOWNLOAD_FILES";

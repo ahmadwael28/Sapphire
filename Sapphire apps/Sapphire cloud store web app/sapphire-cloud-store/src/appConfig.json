@@ -16,7 +16,10 @@
         },
 
         "data": {
-            "profilePic": "users/profile-pic"
+            "profilePic": "users/profile-pic",
+            "uploadFile": "files/upload-file",
+            "getUserFiles": "files/all-files",
+            "getSingleFile": "files/singlefile"
         }
     }
 }

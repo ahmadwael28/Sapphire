@@ -24,20 +24,6 @@ import {
   fillIsEmailExists,
 } from "../actions/AuthenticationActions";
 
-const convertToFormData = (data) => {
-  const fd = new FormData();
-  Object.keys(data).forEach((k) => {
-    if (Array.isArray(data[k])) {
-      for (let i = 0; i < data[k].length; i++) {
-        fd.append(`${k}`, data[k][i]);
-      }
-    } else {
-      fd.append(k, data[k]);
-    }
-  });
-  return fd;
-};
-
 export const loginEpic = (actions$, state$, { rest, appConfig }) => {
   return actions$.pipe(
     ofType(LOGIN),
