@@ -150,9 +150,9 @@ router.put(
   }
 );
 
-// add member to activity
+// remove member to activity
 router.put(
-  "/add-participant/:activityId",
+  "/remove-participant/:activityId",
   AuthorizationMiddleware.verifyToken,
   async (req, res, next) => {
     const userId = req.user.id;
@@ -165,20 +165,17 @@ router.put(
       if (activity.host == userId) {
         //update activity
         const activity = await ActivityRepo.getActivityById(activityId);
-
-        if (
-          !activity.participants.find((p) => p._id == req.body.participantId)
-        ) {
-          activity.participants.push(req.body.participantId);
+        const participantIndex = activity.participants.findIndex((p) => p._id == req.body.participantId)
+        if (participantIndex > -1) {
+          activity.participants.splice(participantIndex, 1);
           await ActivityRepo.updateActivity(activityId, activity);
+          return res.status(200).send("participant removed from activity successfully.");
         } else {
           return res.status(404).json({
-            msg: "participant already joined this activity",
+            msg: "participant did not join this activity",
             code: "ACTIVITY-006",
           });
         }
-
-        return res.status(200).send("Activity has been updated.");
       } else {
         return res.status(403).json({
           msg: "You don't have access rights to update this activity",

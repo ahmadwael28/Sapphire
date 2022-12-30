@@ -7,7 +7,7 @@ const ActivitiesRouter = require("./routes/Activities");
 var cors = require("cors");
 
 const app = express();
-const mongoURL = "mongodb://localhost:27017/activity-geo-tracker";
+const mongoURL = "mongodb://0.0.0.0:27017/activity-geo-tracker";
 const port = process.env.PORT || 4949;
 
 app.use(cors());
