@@ -1,3 +1,4 @@
+const { string } = require("@hapi/joi");
 const mongoose = require("mongoose");
 
 const FileSchema = new mongoose.Schema(
@@ -10,6 +11,11 @@ const FileSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
+    },
+    description: {
+      type: string,
+      required: false,
+      default: "",
     },
     type: {
       type: String,
@@ -24,7 +30,14 @@ const FileSchema = new mongoose.Schema(
       required: true,
       default: Date.now(),
     },
-
+    locationLat: {
+      type: Number,
+      required: true,
+    },
+    locationLng: {
+      type: Number,
+      required: true,
+    },
     participants: [
       {
         participant: {
