@@ -34,7 +34,7 @@ router.get("/all", AuthorizationMiddleware.verifyToken, async (req, res) => {
   return res.status(200).send(filterUserDTO(userActivities));
 });
 
-//get all activities for current user
+//create new activity for the current user
 router.post("/add", AuthorizationMiddleware.verifyToken, async (req, res) => {
   const userId = req.user.id;
   const { error } = validateObjectId(userId);
@@ -55,8 +55,11 @@ router.post("/add", AuthorizationMiddleware.verifyToken, async (req, res) => {
       host: userId,
       startDate: req.startDate || Date.now(),
       name: req.body.name,
+      description: req.body.description,
       type: req.body.type,
       status: req.body.type,
+      locationLat: req.body.locationLat,
+      locationLng: req.body.locationLng
     };
     console.log(activityObj);
     const activity = await ActivityRepo.saveActivity(activityObj);

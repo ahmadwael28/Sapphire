@@ -13,7 +13,7 @@ const FileSchema = new mongoose.Schema(
       required: true,
     },
     description: {
-      type: string,
+      type: String,
       required: false,
       default: "",
     },

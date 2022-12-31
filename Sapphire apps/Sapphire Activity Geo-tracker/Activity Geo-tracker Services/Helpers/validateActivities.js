@@ -7,12 +7,12 @@ const activitySchema = Joi.object({
   description: Joi.string().default("").max(1000),
   type: Joi.string().default(""),
   startDate: Joi.date().default(Date.now()),
-  locationLat: Joi.number().precision(8),
-  locationlng: Joi.number().precision(8),
+  locationLat: Joi.number(),
+  locationlng: Joi.number(),
   participants: Joi.array().items({ user: Joi.objectId() }).default([]),
   status: Joi.string()
     .valid("NOT-YET-STARTED", "STARTED", "ENDED")
-    .default("Pending"),
+    .default("NOT-YET-STARTED"),
 });
 
 const validateActivity = (activity) =>
