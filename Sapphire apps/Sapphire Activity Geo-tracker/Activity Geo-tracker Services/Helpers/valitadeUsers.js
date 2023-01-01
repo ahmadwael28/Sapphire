@@ -13,11 +13,13 @@ const userSchema = Joi.object({
     .required(),
   password: Joi.string().min(8).max(16).required(),
   image: Joi.string().default("default.jpg"),
-  activities: Joi.array().items({ activity: Joi.objectId() }).default([]),
   isDeleted: Joi.boolean().default(false),
   age: Joi.number().min(2).max(120),
   weight: Joi.number().min(8).max(400),
   height: Joi.number().min(50).max(300),
+  activities: Joi.array().items({ activity: Joi.objectId() }).default([]),
+  requests: Joi.array().items({ request: Joi.objectId() }).default([]),
+  invitations: Joi.array().items({ invitation: Joi.objectId() }).default([]),
 });
 
 const validateUser = (user) => userSchema.validate(user, { abortEarly: false });

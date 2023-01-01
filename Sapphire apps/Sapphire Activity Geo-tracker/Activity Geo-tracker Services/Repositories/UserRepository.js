@@ -49,6 +49,18 @@ module.exports = {
     return user;
   },
 
+  // gets user by id and populates user requests list
+  getUserByIdWithRequests: async function (id) {
+    const user = await User.findById(id).populate("requests.request");
+    return user;
+  },
+
+  // gets user by id and populates user invitations list
+  getUserByIdWithInvitations: async function (id) {
+    const user = await User.findById(id).populate("invitations.invitation");
+    return user;
+  },
+
   // checks if a username is used by some user
   isUsernameInUse: async function (username) {
     const user = await User.findOne({ username: username });

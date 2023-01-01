@@ -1,7 +1,7 @@
 const { string } = require("@hapi/joi");
 const mongoose = require("mongoose");
 
-const FileSchema = new mongoose.Schema(
+const ActivitiesSchema = new mongoose.Schema(
   {
     host: {
       type: mongoose.Schema.Types.ObjectId,
@@ -51,6 +51,6 @@ const FileSchema = new mongoose.Schema(
   { getters: true }
 );
 
-const File = mongoose.model("Activity", FileSchema);
+const Activity = mongoose.model("Activity", ActivitiesSchema);
 
-module.exports = File;
+module.exports = Activity;

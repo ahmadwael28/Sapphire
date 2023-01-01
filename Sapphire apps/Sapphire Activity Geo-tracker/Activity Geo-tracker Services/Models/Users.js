@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const { Number } = require("mongoose");
-const number = require("@hapi/joi/lib/types/number");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -52,6 +51,24 @@ const UserSchema = new mongoose.Schema(
           type: mongoose.Schema.Types.ObjectId,
           required: true,
           ref: "Activity",
+        },
+      },
+    ],
+    requests: [
+      {
+        request: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: "Request",
+        },
+      },
+    ],
+    invitations: [
+      {
+        invitation: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: "Invitation",
         },
       },
     ],

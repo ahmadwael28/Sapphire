@@ -37,9 +37,19 @@ router.get("/all", AuthorizationMiddleware.verifyToken, async (req, res) => {
 //create new activity for the current user
 router.post("/add", AuthorizationMiddleware.verifyToken, async (req, res) => {
   const userId = req.user.id;
-  const { error } = validateObjectId(userId);
-  if (error)
-    return res.status(500).json({ msg: error.details, code: "ACTIVITY-001" });
+  const objectIdError = validateObjectId(userId).error;
+  if (objectIdError)
+    return res
+      .status(500)
+      .json({ msg: objectIdError.details, code: "ACTIVITY-001" });
+
+  const activityValidationError = validateActivities(req.body).error;
+  if (activityValidationError) {
+    return res.status(500).json({
+      msg: getErrorMessagesArray(activityValidationError),
+      code: "ACTIVITY-007",
+    });
+  }
 
   let user = await UserRepo.getUserById(userId);
 
@@ -49,32 +59,17 @@ router.post("/add", AuthorizationMiddleware.verifyToken, async (req, res) => {
       code: "ACTIVITY-004",
     });
 
-  if (req.body.name && req.body.type) {
-    //adding activity object to DB
-    const activityObj = {
-      host: userId,
-      startDate: req.startDate || Date.now(),
-      name: req.body.name,
-      description: req.body.description,
-      type: req.body.type,
-      status: req.body.type,
-      locationLat: req.body.locationLat,
-      locationLng: req.body.locationLng
-    };
-    console.log(activityObj);
-    const activity = await ActivityRepo.saveActivity(activityObj);
-    console.log(activity);
+  //adding activity object to DB
+  const activityObj = {
+    host: userId,
+    startDate: req.startDate || Date.now(),
+    ...req.body,
+  };
+  const activity = await ActivityRepo.saveActivity(activityObj);
 
-    user.activities.push({ activity: activity });
-    user = await UserRepo.updateUser(user._id, user);
-    console.log(user);
-    return res.status(200).send("activity created successfully.");
-  } else {
-    return res.status(400).json({
-      msg: "Please provide activity details.",
-      code: "ACTIVITY-005",
-    });
-  }
+  user.activities.push({ activity: activity });
+  user = await UserRepo.updateUser(user._id, user);
+  return res.status(200).send("activity created successfully.");
 });
 
 // update activity by id
@@ -86,6 +81,15 @@ router.put(
     const { error } = validateObjectId(userId);
     if (error)
       return res.status(500).json({ msg: error.details, code: "ACTIVITY-001" });
+
+    const activityValidationError = validateActivities(req.body).error;
+    if (activityValidationError) {
+      return res.status(500).json({
+        msg: getErrorMessagesArray(activityValidationError),
+        code: "ACTIVITY-007",
+      });
+    }
+
     const { activityId } = req.params;
     const activity = await ActivityRepo.getActivityById(activityId);
     if (activity) {
@@ -168,11 +172,15 @@ router.put(
       if (activity.host == userId) {
         //update activity
         const activity = await ActivityRepo.getActivityById(activityId);
-        const participantIndex = activity.participants.findIndex((p) => p._id == req.body.participantId)
+        const participantIndex = activity.participants.findIndex(
+          (p) => p._id == req.body.participantId
+        );
         if (participantIndex > -1) {
           activity.participants.splice(participantIndex, 1);
           await ActivityRepo.updateActivity(activityId, activity);
-          return res.status(200).send("participant removed from activity successfully.");
+          return res
+            .status(200)
+            .send("participant removed from activity successfully.");
         } else {
           return res.status(404).json({
             msg: "participant did not join this activity",
@@ -232,6 +240,14 @@ function filterUserDTO(user) {
   delete userJSON["__v"];
   delete userJSON["_id"];
   return userJSON;
+}
+
+function getErrorMessagesArray(errorObj) {
+  const errorList = [];
+  errorObj.details.forEach((error) => {
+    errorList.push(error.message);
+  });
+  return errorList;
 }
 
 module.exports = router;

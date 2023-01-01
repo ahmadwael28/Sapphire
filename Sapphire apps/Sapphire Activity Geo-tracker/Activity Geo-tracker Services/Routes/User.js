@@ -158,9 +158,19 @@ router.put(
   async (req, res) => {
     let userId = req.user.id;
 
-    const { error } = validateObjectId(userId);
-    if (error)
-      return res.status(500).json({ msg: error.details, code: "USER-001" });
+    const objectIdError = validateObjectId(userId).error;
+    if (objectIdError)
+      return res
+        .status(500)
+        .json({ msg: objectIdError.details, code: "USER-001" });
+
+    const userValidationError = validateUsers(req.body).error;
+    if (userValidationError) {
+      return res.status(500).json({
+        msg: getErrorMessagesArray(userValidationError),
+        code: "ACTIVITY-007",
+      });
+    }
 
     let user = await UserRepo.getUserById(userId);
     if (user == null)
@@ -266,6 +276,14 @@ function filterUserDTO(user) {
   delete userJSON["__v"];
   delete userJSON["_id"];
   return userJSON;
+}
+
+function getErrorMessagesArray(errorObj) {
+  const errorList = [];
+  errorObj.details.forEach((error) => {
+    errorList.push(error.message);
+  });
+  return errorList;
 }
 
 module.exports = router;

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 
 const UsersRouter = require("./routes/user");
 const ActivitiesRouter = require("./routes/Activities");
+const RequestsRouter = require("./routes/Requests");
 
 var cors = require("cors");
 
@@ -17,6 +18,7 @@ app.use(express.urlencoded()); //for form req body
 
 app.use("/Users", UsersRouter);
 app.use("/Activities", ActivitiesRouter);
+app.use("/Requests", RequestsRouter);
 
 mongoose
   .connect(mongoURL, {
